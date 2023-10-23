@@ -11,7 +11,8 @@ constructor(props){
   super(props);
   this.state = {
     starWarsInformation: [],
-    error: false
+    error: false,
+    cityName: ''
   }
 }
 
@@ -45,7 +46,14 @@ constructor(props){
 
 // handle the input for the city to update state before we Submit 
 
+handleCityInput = (event) => {
 
+  console.log(event.target. value);
+  //update state
+  this.setState({
+    cityName: event.target. value
+  })
+};
 
 
 
@@ -56,7 +64,11 @@ constructor(props){
 //handle the city search to out api using the data from state collected from the form. 
 
 
-
+handleCityFormSubmit = (event) => {
+event.preventDefault();
+  console.log('proof of life');
+//we are going to call the api with the data from state. 
+};
 
 
 
@@ -74,8 +86,9 @@ constructor(props){
 
 
   render() {
-    console.log('RESULTS',this.state.starWarsInformation);
+    // console.log('RESULTS',this.state.starWarsInformation);
     //state is full loop over to render
+    console.log('from state',this.state.cityName);
 
     let starWarsList = this.state.starWarsInformation.map((data, index) => {
       return <li key={index}>{data.name}{data.height}</li>
@@ -92,7 +105,13 @@ constructor(props){
         
 
        {/* 1.  Add a form to take in a city  */}
-
+        <form onSubmit={this.handleCityFormSubmit}>
+          <label>
+            Pick a City:
+            <input type="text" onChange={this.handleCityInput}/>
+          </label>
+          <button type="submit"> Get City Data</button>
+        </form>
 
 
 
