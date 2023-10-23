@@ -2,6 +2,9 @@ import React from "react";
 import "./App.css";
 import axios from 'axios';
 
+const API_KEY = import.meta.env.VITE_API_KEY_LOCATION;
+
+console.log('key',API_KEY);
 class App extends React.Component {
 
 constructor(props){
@@ -11,8 +14,6 @@ constructor(props){
     error: false
   }
 }
-
-
 
   handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,6 +42,37 @@ constructor(props){
     }
   };
 
+
+// handle the input for the city to update state before we Submit 
+
+
+
+
+
+
+
+
+
+//handle the city search to out api using the data from state collected from the form. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   render() {
     console.log('RESULTS',this.state.starWarsInformation);
     //state is full loop over to render
@@ -59,7 +91,7 @@ constructor(props){
         }
         
 
-
+       {/* 1.  Add a form to take in a city  */}
 
 
 
