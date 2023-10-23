@@ -1,15 +1,71 @@
 import React from "react";
 import "./App.css";
+import axios from 'axios';
+
+class App extends React.Component {
+
+constructor(props){
+  super(props);
+  this.state = {
+    starWarsInformation: [],
+    error: false
+  }
+}
 
 
 
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("life in handle submit!");
 
+    try {
+      // 1.build a URL https://swapi.dev/api/people/62/
+      let starWarsURL = "https://swapi.dev/api/people/?pag=1";
+      console.log(starWarsURL);
+      // 2. use axios to call the star wars api online
+      let starWarsData = await axios.get(starWarsURL);
+      console.log('DATA?',starWarsData.data);
 
+      this.setState({
+        starWarsInformation: starWarsData.data.results
+      });
 
+    } catch (error) {
+      //add a try catch with error handling.
+      console.log(error);
+      console.log(error.message);
+      this.setState({
+        error: true,
+        errorMessage: `An error occurred: ${error.response.status}`,
+      })
+    }
+  };
 
-class App extends React.Component() {
   render() {
-    return <></>;
+    console.log('RESULTS',this.state.starWarsInformation);
+    //state is full loop over to render
+
+    let starWarsList = this.state.starWarsInformation.map((data, index) => {
+      return <li key={index}>{data.name}{data.height}</li>
+    });
+    return (
+      <>
+        <h1>Data from a Star Wars API</h1>
+        <form onSubmit={this.handleSubmit}>
+          <button type="sumbit">Display Star Wars Data</button>
+        </form>
+        {
+          this.state.error ? (<p>this.state.errorMessage</p>) : (<ul>{starWarsList}</ul>)
+        }
+        
+
+
+
+
+
+
+      </>
+    );
   }
 }
 
